@@ -1,3 +1,4 @@
+import 'package:authentification/database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -31,15 +32,13 @@ class _SignUpState extends State<SignUp> {
       _formKey.currentState.save();
 
       try {
-        UserCredential user = await _auth.createUserWithEmailAndPassword(
+        UserCredential result = await _auth.createUserWithEmailAndPassword(
             email: _email, password: _password);
-        if (user != null) {
-          // UserUpdateInfo updateuser = UserUpdateInfo();
-          // updateuser.displayName = _name;
-          //  user.updateProfile(updateuser);
+        User user = result.user;
+        if (result != null) {
           await _auth.currentUser.updateProfile(displayName: _name);
-          // await Navigator.pushReplacementNamed(context,"/") ;
-
+          await DatabaseService(uid: user.uid)
+              .updateUserData('sample', 'sample', 'sample', 'sample');
         }
       } catch (e) {
         showError(e.message);
@@ -56,7 +55,7 @@ class _SignUpState extends State<SignUp> {
             title: Text('ERROR'),
             content: Text(errormessage),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -76,7 +75,7 @@ class _SignUpState extends State<SignUp> {
             Container(
               height: 400,
               child: Image(
-                image: AssetImage("images/login.jpg"),
+                image: AssetImage("images/images1.png"),
                 fit: BoxFit.contain,
               ),
             ),
@@ -89,6 +88,7 @@ class _SignUpState extends State<SignUp> {
                       child: TextFormField(
                           validator: (input) {
                             if (input.isEmpty) return 'Enter Name';
+                            return null;
                           },
                           decoration: InputDecoration(
                             labelText: 'Name',
@@ -100,6 +100,7 @@ class _SignUpState extends State<SignUp> {
                       child: TextFormField(
                           validator: (input) {
                             if (input.isEmpty) return 'Enter Email';
+                            return null;
                           },
                           decoration: InputDecoration(
                               labelText: 'Email',
@@ -111,6 +112,7 @@ class _SignUpState extends State<SignUp> {
                           validator: (input) {
                             if (input.length < 6)
                               return 'Provide Minimum 6 Character';
+                            return null;
                           },
                           decoration: InputDecoration(
                             labelText: 'Password',
@@ -120,19 +122,21 @@ class _SignUpState extends State<SignUp> {
                           onSaved: (input) => _password = input),
                     ),
                     SizedBox(height: 20),
-                    RaisedButton(
-                      padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                        primary: Colors.deepPurple[200],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
                       onPressed: signUp,
                       child: Text('SignUp',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold)),
-                      color: Colors.orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    )
+                    ),
                   ],
                 ),
               ),

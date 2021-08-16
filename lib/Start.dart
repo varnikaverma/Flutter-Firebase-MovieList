@@ -54,7 +54,7 @@ class _StartState extends State<Start> {
             Container(
               height: 400,
               child: Image(
-                image: AssetImage("images/start.jpg"),
+                image: AssetImage("images/images.png"),
                 fit: BoxFit.contain,
               ),
             ),
@@ -68,57 +68,61 @@ class _StartState extends State<Start> {
                         color: Colors.black),
                     children: <TextSpan>[
                   TextSpan(
-                      text: 'X Groceries',
+                      text: 'Moviez',
                       style: TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.orange))
+                          color: Colors.deepPurple[200]))
                 ])),
             SizedBox(height: 10.0),
             Text(
-              'Fresh Groceries Delivered at your Doorstep',
-              style: TextStyle(color: Colors.black),
+              'A List for Movies',
+              style: TextStyle(
+                  color: Colors.grey[700], fontStyle: FontStyle.italic),
             ),
             SizedBox(height: 30.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.only(left: 30, right: 30),
-                    onPressed: navigateToLogin,
-                    child: Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                    primary: Colors.deepPurple[200],
+                  ),
+                  onPressed: navigateToLogin,
+                  child: Text(
+                    'LOGIN',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    color: Colors.orange),
+                  ),
+                ),
                 SizedBox(width: 20.0),
-                RaisedButton(
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.only(left: 30, right: 30),
-                    onPressed: navigateToRegister,
-                    child: Text(
-                      'REGISTER',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                    primary: Colors.deepPurple[200],
+                  ),
+                  onPressed: navigateToRegister,
+                  child: Text(
+                    'REGISTER',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    color: Colors.orange),
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 20.0),
-            SignInButton(Buttons.Google,
-                text: "Sign up with Google", onPressed: googleSignIn)
+            SignInButton(
+              Buttons.Google,
+              text: "Sign up with Google",
+              onPressed: googleSignIn,
+            ),
           ],
         ),
       ),
